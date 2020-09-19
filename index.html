@@ -11,17 +11,17 @@
     <title>Queer Wave Coffee</title>
   </head>
   <body>
-    <div class="container">
-      <h2 class="text-center">Queer Wave Coffee</h2>
+    <div class="container text-center">
+      <h2>Queer Wave Coffee</h2>
       <div id="smart-button-container">
-        <div style="text-align: center;">
-          <div style="margin-bottom: 1.25rem;">
+        <div class="row justify-content-lg-center" style="text-align: center;">
+          <div class="col-md-auto" style="margin-bottom: 1.25rem;">
             <p>Coffee</p>
-            <select class="dropdown" id="item-options"><option value="Whole Bean" price="25">Whole Bean - 25 USD</option><option value="Ground" price="25">Ground - 25 USD</option></select>
+            <select class="custom-select" id="item-options"><option value="Whole Bean" price="25">Whole Bean - 25 USD</option><option value="Ground-Drip" price="25">Ground Drip - 25 USD</option><option value="Ground-French" price="25">Ground French Press - 25 USD</option><option value="Test" price="1">Test - 1 USD</option></select>
             <select style="visibility: hidden" id="quantitySelect"></select>
           </div>
-        <div id="paypal-button-container"></div>
         </div>
+        <div id="paypal-button-container"></div>
       </div>
       <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
       <script>
