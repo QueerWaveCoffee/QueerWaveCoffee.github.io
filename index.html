@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Queer Wave Coffee</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="text-center">Queer Wave Coffee</h2>
+      <div id="smart-button-container">
+        <div style="text-align: center;">
+          <div style="margin-bottom: 1.25rem;">
+            <p>Coffee</p>
+            <select class="dropdown" id="item-options"><option value="Whole Bean" price="25">Whole Bean - 25 USD</option><option value="Ground" price="25">Ground - 25 USD</option></select>
+            <select style="visibility: hidden" id="quantitySelect"></select>
+          </div>
+        <div id="paypal-button-container"></div>
+        </div>
+      </div>
+      <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
+      <script>
+        function initPayPalButton() {
+          var shipping = 0;
+          var itemOptions = document.querySelector("#smart-button-container #item-options");
+      var quantity = parseInt();
+      var quantitySelect = document.querySelector("#smart-button-container #quantitySelect");
+      if (!isNaN(quantity)) {
+        quantitySelect.style.visibility = "visible";
+      }
+      var orderDescription = 'Coffee';
+      if(orderDescription === '') {
+        orderDescription = 'Item';
+      }
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+        },
+        createOrder: function(data, actions) {
+          var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
+          var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
+          var tax = (7.25 === 0) ? 0 : (selectedItemPrice * (parseFloat(7.25)/100));
+          if(quantitySelect.options.length > 0) {
+            quantity = parseInt(quantitySelect.options[quantitySelect.selectedIndex].value);
+          } else {
+            quantity = 1;
+          }
+
+          tax *= quantity;
+          tax = Math.round(tax * 100) / 100;
+          var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
+          priceTotal = Math.round(priceTotal * 100) / 100;
+          var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
+
+          return actions.order.create({
+            purchase_units: [{
+              description: orderDescription,
+              amount: {
+                currency_code: 'USD',
+                value: priceTotal,
+                breakdown: {
+                  item_total: {
+                    currency_code: 'USD',
+                    value: itemTotalValue,
+                  },
+                  shipping: {
+                    currency_code: 'USD',
+                    value: shipping,
+                  },
+                  tax_total: {
+                    currency_code: 'USD',
+                    value: tax,
+                  }
+                }
+              },
+              items: [{
+                name: selectedItemDescription,
+                unit_amount: {
+                  currency_code: 'USD',
+                  value: selectedItemPrice,
+                },
+                quantity: quantity
+              }]
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+        },
+        onError: function(err) {
+          console.log(err);
+        },
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();
+      </script>
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+<!-- <div id="paypal-button-container"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+      },
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: '20'
+                  }
+              }]
+          });
+      },
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+      }
+  }).render('#paypal-button-container');
+</script> -->
