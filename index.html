@@ -16,14 +16,14 @@
       <div id="smart-button-container">
         <div class="row justify-content-lg-center" style="text-align: center;">
           <div class="col-md-auto" style="margin-bottom: 1.25rem;">
-            <p>Coffee</p>
-            <select id="item-options"><option value="Whole Bean" price="25">Whole Bean - 25 USD</option><option value="Ground, Drip" price="25">Ground, Drip - 25 USD</option><option value="Ground, French Press" price="25">Ground, French Press - 25 USD</option></select>
-          <select style="visibility: hidden" id="quantitySelect"></select>
+            <p>12 oz Coffee</p>
+            <select id="item-options"><option value="Whole Bean" price="20">Whole Bean - 20 USD</option><option value="Ground, Drip" price="20">Ground, Drip - 20 USD</option><option value="Ground, French Press" price="20">Ground, French Press - 20 USD</option></select>
+            <select style="visibility: hidden" id="quantitySelect"></select>
           </div>
         </div>
         <div id="paypal-button-container"></div>
       </div>
-      <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
+      <script src="https://www.paypal.com/sdk/js?client-id=Ac-AhL2rLk53pEl9ZuTe90kavRnoEi2qtc3Rs9X8KOynx1cSXxHPzn5xQdwu9aHxO9PH9l2BhWT7M4uA&currency=USD" data-sdk-integration-source="button-factory"></script>
       <script>
         function initPayPalButton() {
           var shipping = 0;
@@ -33,7 +33,7 @@
       if (!isNaN(quantity)) {
         quantitySelect.style.visibility = "visible";
       }
-      var orderDescription = 'Coffee';
+      var orderDescription = '12 oz Coffee';
       if(orderDescription === '') {
         orderDescription = 'Item';
       }
@@ -48,7 +48,7 @@
         createOrder: function(data, actions) {
           var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
           var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
-          var tax = (7.25 === 0) ? 0 : (selectedItemPrice * (parseFloat(7.25)/100));
+          var tax = (0 === 0) ? 0 : (selectedItemPrice * (parseFloat(0)/100));
           if(quantitySelect.options.length > 0) {
             quantity = parseInt(quantitySelect.options[quantitySelect.selectedIndex].value);
           } else {
@@ -104,7 +104,7 @@
       }).render('#paypal-button-container');
     }
     initPayPalButton();
-      </script>
+      </script> 
 
     </div>
     <!-- Optional JavaScript -->
@@ -114,4 +114,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   </body>
 </html>
-    
+       
